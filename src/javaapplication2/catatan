@@ -1,0 +1,11 @@
+* Koneksi
+Connection conn;
+try {
+    // below two lines are used for connectivity.
+    Class.forName(Global.DBDRIVER);
+    conn = DriverManager.getConnection(Global.DBCONNECTION,Global.DBUSER, Global.DBPASS);
+
+    conn.close();
+} catch (Exception e) {
+    // error message
+}
