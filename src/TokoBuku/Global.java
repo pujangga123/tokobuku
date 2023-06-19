@@ -1,4 +1,4 @@
-package javaapplication2;
+package TokoBuku;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +15,6 @@ public class Global {
     public static final String DBPASS = "";
     
     public static Connection db() {
-            // below two lines are used for connectivity.
         try {
             Class.forName(DBDRIVER);
             return DriverManager.getConnection(DBCONNECTION,DBUSER,DBPASS);

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication2;
+package TokoBuku;
 
 import java.awt.Color;
 import java.time.LocalDateTime;
@@ -54,7 +54,7 @@ public class FormUtama extends javax.swing.JFrame {
         });
 
         imageBg.setBackground(new java.awt.Color(255, 255, 255));
-        imageBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication2/logo.png"))); // NOI18N
+        imageBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TokoBuku/logo.png"))); // NOI18N
 
         menuFile.setMnemonic('f');
         menuFile.setText("File");

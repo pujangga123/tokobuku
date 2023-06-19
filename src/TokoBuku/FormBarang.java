@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication2;
+package TokoBuku;
 
 import java.awt.Point;
 import java.sql.*;
@@ -86,6 +86,9 @@ public class FormBarang extends javax.swing.JFrame {
         tabelBarang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelBarangMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabelBarangMouseEntered(evt);
             }
         });
         jScrollPane1.setViewportView(tabelBarang);
@@ -174,24 +177,24 @@ public class FormBarang extends javax.swing.JFrame {
         Point p = evt.getPoint();
         int row = tabelBarang.rowAtPoint(p);
         
-        //JOptionPane.showMessageDialog(null, tabelBarang.getModel().getValueAt(row, 0));
-        //FormDetailBarang f = new FormDetailBarang();
-        //f.setVisible(true);
-        
         // ambil kode barang dari baris yang di klik
         String kode = tabelBarang.getModel().getValueAt(row, 0).toString();
         
-        // kirim 'kode' lewat fungsi 'baca'
-        //f.baca(kode);
+        // untuk percobaan, menamtampilkan 'kode'
+        // JOptionPane.showMessageDialog(null, kode);
         
-        // tampilkan kode
-        JOptionPane.showMessageDialog(null, kode);
+        // buat objek FormDetailBarang
+        FormDetailBarang f = new FormDetailBarang();
+        f.baca(kode); // kirim 'kode' lewat fungsi 'baca'
     }//GEN-LAST:event_tabelBarangMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
         tombolReload.doClick();
     }//GEN-LAST:event_formWindowOpened
+
+    private void tabelBarangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelBarangMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelBarangMouseEntered
 
     /**
      * @param args the command line arguments

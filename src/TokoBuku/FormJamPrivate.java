@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication2;
+package TokoBuku;
 
 /**
  *
  * @author En Tay
  */
-public class FormJamPublic extends javax.swing.JFrame {
+public class FormJamPrivate extends javax.swing.JFrame {
 
     /**
-     * Creates new form FormJamPublic
+     * Creates new form FormJamPrivate
      */
-    public FormJamPublic() {
+    public FormJamPrivate() {
         initComponents();
     }
 
@@ -26,45 +26,38 @@ public class FormJamPublic extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        labelHari = new javax.swing.JLabel();
         labelSalam = new javax.swing.JLabel();
-
-        jButton1.setText("jButton1");
+        labelHari = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Jam (komponen public)");
-
-        labelHari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelHari.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelHari.setText("jLabel1");
+        setTitle("Jam (komponen private)");
 
         labelSalam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelSalam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelSalam.setText("jLabel1");
 
+        labelHari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelHari.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHari.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelHari, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(labelSalam, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelHari, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(labelSalam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(labelSalam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelHari)
-                .addGap(68, 68, 68))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(44, 44, 44)
-                    .addComponent(labelSalam)
-                    .addContainerGap(96, Short.MAX_VALUE)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,26 +80,31 @@ public class FormJamPublic extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormJamPublic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormJamPrivate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormJamPublic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormJamPrivate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormJamPublic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormJamPrivate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormJamPublic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormJamPrivate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormJamPublic().setVisible(true);
+                new FormJamPrivate().setVisible(true);
             }
         });
     }
+   
+    public void tampilkan(String tanggal) {
+        labelSalam.setText("Halo, "+Global.NAMA);
+        labelHari.setText(tanggal);
+        setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     public javax.swing.JLabel labelHari;
     public javax.swing.JLabel labelSalam;
     // End of variables declaration//GEN-END:variables

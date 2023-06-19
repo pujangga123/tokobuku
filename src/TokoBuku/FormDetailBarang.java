@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication2;
+package TokoBuku;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,6 +44,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tombolTambah = new javax.swing.JButton();
         tombolBatal = new javax.swing.JButton();
+        tombolUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,18 +72,28 @@ public class FormDetailBarang extends javax.swing.JFrame {
             }
         });
 
+        tombolUpdate.setText("Update");
+        tombolUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(tombolTambah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(tombolUpdate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tombolBatal)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(tombolTambah)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tombolBatal))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
@@ -94,10 +105,11 @@ public class FormDetailBarang extends javax.swing.JFrame {
                             .addComponent(comboJenis, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(textNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                                .addComponent(textKode, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 98, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(textKode, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tombolBatal, tombolTambah});
@@ -123,9 +135,10 @@ public class FormDetailBarang extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tombolTambah)
-                    .addComponent(tombolBatal))
-                .addContainerGap())
+                    .addComponent(tombolBatal)
+                    .addComponent(tombolUpdate)
+                    .addComponent(tombolTambah))
+                .addGap(18, 18, 18))
         );
 
         textKode.getAccessibleContext().setAccessibleName("");
@@ -174,10 +187,16 @@ public class FormDetailBarang extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tombolTambahActionPerformed
 
+    private void tombolUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolUpdateActionPerformed
+
     public void baca(String kode) {
+        tombolTambah.setVisible(false);
+        tombolUpdate.setVisible(true);
+        
         Connection conn;
         try {
-            // below two lines are used for connectivity.
             Class.forName(Global.DBDRIVER);
             conn = DriverManager.getConnection(Global.DBCONNECTION,Global.DBUSER, Global.DBPASS);
  
@@ -204,6 +223,9 @@ public class FormDetailBarang extends javax.swing.JFrame {
         comboJenis.setSelectedIndex(0);
         textHarga.setText("0");
         setVisible(true);
+        
+        tombolUpdate.setVisible(false);
+        tombolTambah.setVisible(true);
     }
     
     
@@ -254,5 +276,6 @@ public class FormDetailBarang extends javax.swing.JFrame {
     private javax.swing.JTextField textNama;
     private javax.swing.JButton tombolBatal;
     private javax.swing.JButton tombolTambah;
+    private javax.swing.JButton tombolUpdate;
     // End of variables declaration//GEN-END:variables
 }
