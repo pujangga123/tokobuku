@@ -45,6 +45,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
         tombolTambah = new javax.swing.JButton();
         tombolBatal = new javax.swing.JButton();
         tombolUpdate = new javax.swing.JButton();
+        tombolHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,37 +80,47 @@ public class FormDetailBarang extends javax.swing.JFrame {
             }
         });
 
+        tombolHapus.setText(" Hapus");
+        tombolHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolHapusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(tombolTambah)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(tombolUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tombolBatal)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboJenis, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(textNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                                .addComponent(textKode, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addComponent(tombolTambah)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tombolHapus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tombolUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tombolBatal))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboJenis, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(textNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                                        .addComponent(textKode, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 179, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tombolBatal, tombolTambah});
@@ -133,11 +144,12 @@ public class FormDetailBarang extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tombolBatal)
                     .addComponent(tombolUpdate)
-                    .addComponent(tombolTambah))
+                    .addComponent(tombolTambah)
+                    .addComponent(tombolHapus))
                 .addGap(18, 18, 18))
         );
 
@@ -188,12 +200,79 @@ public class FormDetailBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_tombolTambahActionPerformed
 
     private void tombolUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUpdateActionPerformed
-        // TODO add your handling code here:
+        Connection conn;
+        try {                
+            // pada bagian ini kita menggunakan Global.db(), untuk menggantikan perintah:
+            // Class.forName dan DriverManager.getConnection
+            conn = Global.db();  // ingat, ganti kata Global dengan nama Anda.
+
+            // baca data
+            String kode = textKode.getText();
+            String nama = textNama.getText();
+            String jenis = comboJenis.getSelectedItem().toString();
+            int harga = Integer.parseInt(textHarga.getText());
+
+            // SQL
+            String sql = "update barang set nama=?, jenis=?, harga=? where kode=?";
+
+            // siapkan statement untuk INSERT
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, nama);
+            pst.setString(2, jenis);
+            pst.setInt(3, harga);
+            pst.setString(4, kode);
+
+            // eksekusi SQL
+            pst.execute(); 
+
+            // hapus objek 
+            pst.close();
+            conn.close();
+
+            // tampilkan pesan
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null,e.getMessage().toString());
+        } 
     }//GEN-LAST:event_tombolUpdateActionPerformed
+
+    private void tombolHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusActionPerformed
+        if(JOptionPane.showConfirmDialog(null, "Konfirmasi", "Yakin hapus item ini?",  JOptionPane.DEFAULT_OPTION)==0) {
+            Connection conn;
+            try {
+                conn = Global.db();
+
+                // baca data
+                String kode = textKode.getText();
+
+                // SQL
+                String sql = "delete from barang where kode=?";
+
+                // siapkan statement untuk INSERT
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, kode);
+
+                // eksekusi SQL
+                pst.execute(); 
+
+                // hapus objek 
+                pst.close();
+                conn.close();
+
+                // tampilkan pesan
+                JOptionPane.showMessageDialog(null, "Data dihapus");
+            } catch(Exception e) {
+                //JOptionPane.showMessageDialog(null,e.getMessage().toString());
+                JOptionPane.showMessageDialog(null,e.getMessage().toString());
+            } 
+        }
+        
+    }//GEN-LAST:event_tombolHapusActionPerformed
 
     public void baca(String kode) {
         tombolTambah.setVisible(false);
         tombolUpdate.setVisible(true);
+        tombolHapus.setVisible(true);
         
         Connection conn;
         try {
@@ -214,7 +293,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"gagal baca");
         } 
-        
+        setVisible(true);
     }
     
     public void baru() {
@@ -226,6 +305,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
         
         tombolUpdate.setVisible(false);
         tombolTambah.setVisible(true);
+        tombolHapus.setVisible(false);
     }
     
     
@@ -275,6 +355,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
     private javax.swing.JTextField textKode;
     private javax.swing.JTextField textNama;
     private javax.swing.JButton tombolBatal;
+    private javax.swing.JButton tombolHapus;
     private javax.swing.JButton tombolTambah;
     private javax.swing.JButton tombolUpdate;
     // End of variables declaration//GEN-END:variables

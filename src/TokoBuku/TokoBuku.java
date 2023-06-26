@@ -8,7 +8,7 @@ package TokoBuku;
  *
  * @author En Tay
  */
-public class JavaApplication2 {
+public class TokoBuku {
 
     /**
      * @param args the command line arguments

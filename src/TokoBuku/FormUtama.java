@@ -39,6 +39,8 @@ public class FormUtama extends javax.swing.JFrame {
         menuFileMaster = new javax.swing.JMenu();
         menuFileMasterBarang = new javax.swing.JMenuItem();
         menuFileExit = new javax.swing.JMenuItem();
+        menuTransaksi = new javax.swing.JMenu();
+        menuTransaksiInput = new javax.swing.JMenuItem();
         menuUtility = new javax.swing.JMenu();
         menuUtilityJamPublic = new javax.swing.JMenuItem();
         menuUtilityJamPrivate = new javax.swing.JMenuItem();
@@ -81,6 +83,18 @@ public class FormUtama extends javax.swing.JFrame {
         menuFile.add(menuFileExit);
 
         jMenuBar1.add(menuFile);
+
+        menuTransaksi.setText("Transaksi");
+
+        menuTransaksiInput.setText("Input");
+        menuTransaksiInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTransaksiInputActionPerformed(evt);
+            }
+        });
+        menuTransaksi.add(menuTransaksiInput);
+
+        jMenuBar1.add(menuTransaksi);
 
         menuUtility.setText("Utility");
 
@@ -168,6 +182,10 @@ public class FormUtama extends javax.swing.JFrame {
         new FormJamPrivate().tampilkan(dtf.format(now));
     }//GEN-LAST:event_menuUtilityJamPrivateActionPerformed
 
+    private void menuTransaksiInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTransaksiInputActionPerformed
+        new FormTransaksi().setVisible(true);
+    }//GEN-LAST:event_menuTransaksiInputActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -212,6 +230,8 @@ public class FormUtama extends javax.swing.JFrame {
     private javax.swing.JMenu menuFileMaster;
     private javax.swing.JMenuItem menuFileMasterBarang;
     private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuTransaksi;
+    private javax.swing.JMenuItem menuTransaksiInput;
     private javax.swing.JMenu menuUtility;
     private javax.swing.JMenuItem menuUtilityJamPrivate;
     private javax.swing.JMenuItem menuUtilityJamPublic;
