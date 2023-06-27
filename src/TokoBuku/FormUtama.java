@@ -33,7 +33,6 @@ public class FormUtama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageBg = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileMaster = new javax.swing.JMenu();
@@ -41,9 +40,6 @@ public class FormUtama extends javax.swing.JFrame {
         menuFileExit = new javax.swing.JMenuItem();
         menuTransaksi = new javax.swing.JMenu();
         menuTransaksiInput = new javax.swing.JMenuItem();
-        menuUtility = new javax.swing.JMenu();
-        menuUtilityJamPublic = new javax.swing.JMenuItem();
-        menuUtilityJamPrivate = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuAbout = new javax.swing.JMenuItem();
 
@@ -54,9 +50,6 @@ public class FormUtama extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
-
-        imageBg.setBackground(new java.awt.Color(255, 255, 255));
-        imageBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TokoBuku/logo.png"))); // NOI18N
 
         menuFile.setMnemonic('f');
         menuFile.setText("File");
@@ -96,26 +89,6 @@ public class FormUtama extends javax.swing.JFrame {
 
         jMenuBar1.add(menuTransaksi);
 
-        menuUtility.setText("Utility");
-
-        menuUtilityJamPublic.setText("Jam (Public)");
-        menuUtilityJamPublic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuUtilityJamPublicActionPerformed(evt);
-            }
-        });
-        menuUtility.add(menuUtilityJamPublic);
-
-        menuUtilityJamPrivate.setText("Jam (Private)");
-        menuUtilityJamPrivate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuUtilityJamPrivateActionPerformed(evt);
-            }
-        });
-        menuUtility.add(menuUtilityJamPrivate);
-
-        jMenuBar1.add(menuUtility);
-
         menuHelp.setText("Help");
 
         menuAbout.setMnemonic('a');
@@ -135,17 +108,11 @@ public class FormUtama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(imageBg)
-                .addContainerGap(350, Short.MAX_VALUE))
+            .addGap(0, 399, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(imageBg)
-                .addContainerGap(286, Short.MAX_VALUE))
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         pack();
@@ -166,21 +133,6 @@ public class FormUtama extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
-
-    private void menuUtilityJamPublicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUtilityJamPublicActionPerformed
-        FormJamPublic f = new FormJamPublic();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy");  
-        LocalDateTime now = LocalDateTime.now();  
-        f.labelHari.setText(dtf.format(now));
-        f.labelSalam.setText("Halo, "+Global.NAMA);
-        f.setVisible(true);
-    }//GEN-LAST:event_menuUtilityJamPublicActionPerformed
-
-    private void menuUtilityJamPrivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUtilityJamPrivateActionPerformed
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy");  
-        LocalDateTime now = LocalDateTime.now();  
-        new FormJamPrivate().tampilkan(dtf.format(now));
-    }//GEN-LAST:event_menuUtilityJamPrivateActionPerformed
 
     private void menuTransaksiInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTransaksiInputActionPerformed
         new FormTransaksi().setVisible(true);
@@ -222,7 +174,6 @@ public class FormUtama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel imageBg;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem menuAbout;
     private javax.swing.JMenu menuFile;
@@ -232,8 +183,5 @@ public class FormUtama extends javax.swing.JFrame {
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuTransaksi;
     private javax.swing.JMenuItem menuTransaksiInput;
-    private javax.swing.JMenu menuUtility;
-    private javax.swing.JMenuItem menuUtilityJamPrivate;
-    private javax.swing.JMenuItem menuUtilityJamPublic;
     // End of variables declaration//GEN-END:variables
 }

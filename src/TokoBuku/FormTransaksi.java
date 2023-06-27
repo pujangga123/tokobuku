@@ -98,6 +98,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         });
 
         tombolSimpan.setText("Simpan");
+        tombolSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolSimpanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -213,6 +218,10 @@ public class FormTransaksi extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_tombolTambahActionPerformed
+
+    private void tombolSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolSimpanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolSimpanActionPerformed
 
     public void totalHitung() {
         
