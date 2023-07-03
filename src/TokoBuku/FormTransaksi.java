@@ -5,9 +5,9 @@
 package TokoBuku;
 
 import java.awt.Point;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.HashSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -98,6 +98,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         });
 
         tombolSimpan.setText("Simpan");
+        tombolSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolSimpanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,12 +212,64 @@ public class FormTransaksi extends javax.swing.JFrame {
                 totalHitung();
             }
 
-            
-        
         } catch (Exception e) {
             
         }
     }//GEN-LAST:event_tombolTambahActionPerformed
+
+    private void tombolSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolSimpanActionPerformed
+        Connection conn;
+        try {
+            conn = Global.db();
+            
+            //
+            String tanggal = textTanggal.getText();
+            String konsumenId = textKodeKonsumen.getText();
+                                   
+            // SQL untuk input ke tabel jualmaster
+            String sql = "insert into jualmaster (tanggal, konsumenId) values (?,?)";
+            
+            // siapkan statement untuk INSERT
+            PreparedStatement pst = conn.prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, tanggal);
+            pst.setString(2, konsumenId);
+            
+            // eksekusi SQL
+            pst.execute(); 
+            ResultSet rs = pst.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            
+            sql = "insert into jualdetail (jualNomor, barangKode, qty, harga, diskon) values (?,?,?,?,?)";
+            pst = conn.prepareStatement(sql);
+            int row=0;
+            while(row<tabelDetail.getModel().getRowCount()){
+                String kode = tabelDetail.getModel().getValueAt(row, 0).toString();
+                int harga = (int)tabelDetail.getModel().getValueAt(row, 2);
+                int qty = (int)tabelDetail.getModel().getValueAt(row, 3);
+                int diskon = (int)tabelDetail.getModel().getValueAt(row, 4);
+                
+                pst.setInt(1,id);
+                pst.setString(2, kode);
+                pst.setInt(3, qty);
+                pst.setInt(4, harga);
+                pst.setInt(5,diskon);
+                pst.execute();
+                row++;
+            }
+            
+            // hapus objek 
+            pst.close();
+            conn.close();
+            
+            // tampilkan pesan
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        } catch(Exception e) {
+            //JOptionPane.showMessageDialog(null,e.getMessage().toString());
+            JOptionPane.showMessageDialog(null,e.getMessage().toString());
+        }
+                
+    }//GEN-LAST:event_tombolSimpanActionPerformed
 
     public void totalHitung() {
         
