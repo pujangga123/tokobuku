@@ -193,7 +193,6 @@ public class FormDetailBarang extends javax.swing.JFrame {
             // tampilkan pesan
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
         } catch(Exception e) {
-            //JOptionPane.showMessageDialog(null,e.getMessage().toString());
             JOptionPane.showMessageDialog(null,e.getMessage().toString());
         } 
         

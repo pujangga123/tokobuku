@@ -188,12 +188,9 @@ public class FormTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_textQtyActionPerformed
 
     private void tombolTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahActionPerformed
-
         DefaultTableModel model = (DefaultTableModel)tabelDetail.getModel();        
         Connection conn;
-        
         try {
-            
             String kode = textKodeBarang.getText();
 
             conn = Global.db(); 
@@ -212,9 +209,8 @@ public class FormTransaksi extends javax.swing.JFrame {
                 model.addRow(new Object[]{kode, nama, harga, qty, diskon, subtotal });
                 totalHitung();
             }
-
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(null,e.getMessage().toString());
         }
     }//GEN-LAST:event_tombolTambahActionPerformed
 

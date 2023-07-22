@@ -59,6 +59,11 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
         tombolUpdate.setText("Update");
 
         tombolHapus.setText("Hapus");
+        tombolHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolHapusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +116,10 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
     private void tombolSelesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolSelesaiActionPerformed
         setVisible(false);
     }//GEN-LAST:event_tombolSelesaiActionPerformed
+
+    private void tombolHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolHapusActionPerformed
 
     /**
      * @param args the command line arguments

@@ -56,6 +56,11 @@ public class FormKonsumen extends javax.swing.JFrame {
         tombolReload.setText("Reload");
 
         tombolTambah.setText("Tambah");
+        tombolTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolTambahActionPerformed(evt);
+            }
+        });
 
         tombolSelesai.setText("Selesai");
 
@@ -92,6 +97,10 @@ public class FormKonsumen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tombolTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolTambahActionPerformed
 
     /**
      * @param args the command line arguments
