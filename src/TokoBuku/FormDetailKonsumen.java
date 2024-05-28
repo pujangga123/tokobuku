@@ -4,6 +4,11 @@
  */
 package TokoBuku;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author En Tay
@@ -15,6 +20,51 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
      */
     public FormDetailKonsumen() {
         initComponents();
+    }
+
+    public void baca(String id) {
+        tombolTambah.setVisible(false);
+        tombolUpdate.setVisible(true);
+        tombolHapus.setVisible(true);
+
+        try {
+            // deklarasi
+            Connection conn;
+            PreparedStatement st;
+            ResultSet rs;
+
+            conn = Global.db();
+
+            String sql = "select * from konsumen where id=?";
+            st = conn.prepareStatement(sql);
+            st.setString(1, id);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                textId.setText(rs.getString("id"));
+                textNama.setText(rs.getString("nama"));
+                textTelepon.setText(rs.getString("telepon"));
+            }
+            st.close();
+            rs.close();
+            conn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal baca");
+        }
+        setVisible(true);
+    }
+
+    // fungsi yang dipanggil dari luar class untuk menampilkan form dengan 
+    // posisi "tambah baru"
+    public void baru() {
+        textId.setText("");
+        textNama.setText("");
+        textTelepon.setText("");
+        setVisible(true);
+
+        tombolUpdate.setVisible(false);
+        tombolTambah.setVisible(true);
+        tombolHapus.setVisible(false);
     }
 
     /**
@@ -29,13 +79,15 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        textKode = new javax.swing.JTextField();
+        textId = new javax.swing.JTextField();
         textNama = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         tombolTambah = new javax.swing.JButton();
         tombolSelesai = new javax.swing.JButton();
         tombolUpdate = new javax.swing.JButton();
         tombolHapus = new javax.swing.JButton();
+        textTelepon = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -48,6 +100,11 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
         jLabel2.setText("Nama");
 
         tombolTambah.setText("Tambah");
+        tombolTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolTambahActionPerformed(evt);
+            }
+        });
 
         tombolSelesai.setText("Selesai");
         tombolSelesai.addActionListener(new java.awt.event.ActionListener() {
@@ -64,6 +121,8 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
                 tombolHapusActionPerformed(evt);
             }
         });
+
+        jLabel3.setText("Telepon");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,11 +142,13 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textKode, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -96,18 +157,22 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(textKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tombolTambah)
                     .addComponent(tombolSelesai)
                     .addComponent(tombolUpdate)
                     .addComponent(tombolHapus))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,6 +185,41 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
     private void tombolHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tombolHapusActionPerformed
+
+    private void tombolTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahActionPerformed
+        Connection conn;
+        try {
+            conn = Global.db();
+
+            // baca data
+            String id = textId.getText();
+            String nama = textNama.getText();
+            String telepon = textTelepon.getText();
+
+            // SQL
+            String sql = "insert into konsumen (id, nama, telepon) values (?,?,?)";
+
+            // siapkan statement untuk INSERT
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, id);
+            st.setString(2, nama);
+            st.setString(3, telepon);
+
+            // eksekusi SQL
+            st.execute();
+
+            // hapus objek 
+            st.close();
+            conn.close();
+
+            // tampilkan pesan
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage().toString());
+        }
+        setVisible(false);
+
+    }//GEN-LAST:event_tombolTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,8 +261,10 @@ public class FormDetailKonsumen extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField textKode;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField textId;
     private javax.swing.JTextField textNama;
+    private javax.swing.JTextField textTelepon;
     private javax.swing.JButton tombolHapus;
     private javax.swing.JButton tombolSelesai;
     private javax.swing.JButton tombolTambah;

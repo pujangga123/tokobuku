@@ -14,13 +14,38 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Lenovo
  */
-public class FormTransaksi extends javax.swing.JFrame {
+public class FormDetailTransaksi extends javax.swing.JFrame {
 
     /**
      * Creates new form FormTransaksi
      */
-    public FormTransaksi() {
+    public FormDetailTransaksi() {
         initComponents();
+    }
+
+    public void baru() {
+        textNomor.setText("");
+        textTanggal.setText("");
+        textKodeKonsumen.setText("");
+
+        // hapus baris di tabel detail
+        DefaultTableModel model = (DefaultTableModel) tabelDetail.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+//        textKodeBarang.setText("");
+//        textQty.setText("");
+//        textDiskon.setText("");
+        detailClear();
+
+        setVisible(true);
+    }
+
+    private void detailClear() {
+        textKodeBarang.setText("");
+        textQty.setText("");
+        textDiskon.setText("");
     }
 
     /**
@@ -46,10 +71,10 @@ public class FormTransaksi extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         textTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        tombolTambah = new javax.swing.JButton();
+        tombolTambahDetail = new javax.swing.JButton();
         tombolSimpan = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        textNomor = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         tabelDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,10 +115,10 @@ public class FormTransaksi extends javax.swing.JFrame {
 
         jLabel6.setText("Total");
 
-        tombolTambah.setText("Tambah");
-        tombolTambah.addActionListener(new java.awt.event.ActionListener() {
+        tombolTambahDetail.setText("Tambah");
+        tombolTambahDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolTambahActionPerformed(evt);
+                tombolTambahDetailActionPerformed(evt);
             }
         });
 
@@ -103,6 +128,10 @@ public class FormTransaksi extends javax.swing.JFrame {
                 tombolSimpanActionPerformed(evt);
             }
         });
+
+        textNomor.setEditable(false);
+
+        jLabel7.setText("Nomor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,15 +145,15 @@ public class FormTransaksi extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(57, 57, 57)))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel7)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textTanggal)
-                            .addComponent(textKodeKonsumen, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                            .addComponent(textKodeKonsumen, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                            .addComponent(textNomor, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -140,7 +169,7 @@ public class FormTransaksi extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(textDiskon, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tombolTambah)
+                        .addComponent(tombolTambahDetail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -152,7 +181,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textNomor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -174,7 +207,7 @@ public class FormTransaksi extends javax.swing.JFrame {
                     .addComponent(textDiskon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(tombolTambah))
+                    .addComponent(tombolTambahDetail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tombolSimpan)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -187,95 +220,108 @@ public class FormTransaksi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textQtyActionPerformed
 
-    private void tombolTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahActionPerformed
-        DefaultTableModel model = (DefaultTableModel)tabelDetail.getModel();        
-        Connection conn;
+    private void tombolTambahDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahDetailActionPerformed
+
         try {
+            // deklarasi
+            DefaultTableModel model = (DefaultTableModel) tabelDetail.getModel();
+            Connection conn;
+
             String kode = textKodeBarang.getText();
 
-            conn = Global.db(); 
+            conn = Global.db();
             PreparedStatement pst = conn.prepareStatement("select * from barang where kode=?");
             pst.setString(1, kode);
-            
+
             ResultSet rs;
-            rs = pst.executeQuery();  
-            
-            if(rs.next()) {
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
                 String nama = rs.getString("nama");
                 int harga = rs.getInt("harga");
                 int qty = Integer.valueOf(textQty.getText());
                 int diskon = Integer.valueOf(textDiskon.getText());
                 int subtotal = (harga * qty) - diskon;
-                model.addRow(new Object[]{kode, nama, harga, qty, diskon, subtotal });
+                model.addRow(new Object[]{kode, nama, harga, qty, diskon, subtotal});
                 totalHitung();
+
+//                textKodeBarang.setText("");
+//                textQty.setText("");
+//                textDiskon.setText("");
+
+                // setelah input detail ke tabel berhasil, bersihkan detail
+                detailClear();
+            } else {
+                JOptionPane.showMessageDialog(null, "Kode barang tidak ditemukan");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e.getMessage().toString());
+            JOptionPane.showMessageDialog(null, e.getMessage().toString());
         }
-    }//GEN-LAST:event_tombolTambahActionPerformed
+    }//GEN-LAST:event_tombolTambahDetailActionPerformed
 
     private void tombolSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolSimpanActionPerformed
         Connection conn;
         try {
             conn = Global.db();
-            
+
             String tanggal = textTanggal.getText();
             String konsumenId = textKodeKonsumen.getText();
-                                   
+
             // SQL untuk input ke tabel jualmaster
             String sql = "insert into jualmaster (tanggal, konsumenId) values (?,?)";
-            
+
             // siapkan statement untuk INSERT
-            PreparedStatement pst = conn.prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, tanggal);
             pst.setString(2, konsumenId);
-            
+
             // eksekusi SQL
-            pst.execute(); 
+            pst.execute();
             ResultSet rs = pst.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-            
-            sql = "insert into jualdetail (jualNomor, barangKode, qty, harga, diskon) values (?,?,?,?,?)";
+
+            sql = "insert into jualdetail (jualmasterNomor, barangKode, qty, harga, diskon) values (?,?,?,?,?)";
             pst = conn.prepareStatement(sql);
-            int row=0;
-            while(row<tabelDetail.getModel().getRowCount()){
+            int row = 0;
+            while (row < tabelDetail.getModel().getRowCount()) {
                 String kode = tabelDetail.getModel().getValueAt(row, 0).toString();
-                int harga = (int)tabelDetail.getModel().getValueAt(row, 2);
-                int qty = (int)tabelDetail.getModel().getValueAt(row, 3);
-                int diskon = (int)tabelDetail.getModel().getValueAt(row, 4);
-                
-                pst.setInt(1,id);
+                int harga = (int) tabelDetail.getModel().getValueAt(row, 2);
+                int qty = (int) tabelDetail.getModel().getValueAt(row, 3);
+                int diskon = (int) tabelDetail.getModel().getValueAt(row, 4);
+
+                pst.setInt(1, id);
                 pst.setString(2, kode);
                 pst.setInt(3, qty);
                 pst.setInt(4, harga);
-                pst.setInt(5,diskon);
+                pst.setInt(5, diskon);
                 pst.execute();
                 row++;
             }
-            
+
             // hapus objek 
             pst.close();
             conn.close();
-            
+
             // tampilkan pesan
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-        } catch(Exception e) {
+            setVisible(false);
+        } catch (Exception e) {
             //JOptionPane.showMessageDialog(null,e.getMessage().toString());
-            JOptionPane.showMessageDialog(null,e.getMessage().toString());
+            JOptionPane.showMessageDialog(null, e.getMessage().toString());
         }
-                
+
     }//GEN-LAST:event_tombolSimpanActionPerformed
 
     public void totalHitung() {
-        
+
         int total = 0;
-        for(int n=0; n<tabelDetail.getModel().getRowCount(); n++) {
-            total += (int)tabelDetail.getModel().getValueAt(n,5);
+        for (int n = 0; n < tabelDetail.getModel().getRowCount(); n++) {
+            total += (int) tabelDetail.getModel().getValueAt(n, 5);
         }
         textTotal.setText(Integer.toString(total));
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -293,20 +339,21 @@ public class FormTransaksi extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDetailTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDetailTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDetailTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDetailTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormTransaksi().setVisible(true);
+                new FormDetailTransaksi().setVisible(true);
             }
         });
     }
@@ -318,15 +365,17 @@ public class FormTransaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelDetail;
     private javax.swing.JTextField textDiskon;
     private javax.swing.JTextField textKodeBarang;
     private javax.swing.JTextField textKodeKonsumen;
+    private javax.swing.JTextField textNomor;
     private javax.swing.JTextField textQty;
     private javax.swing.JTextField textTanggal;
     private javax.swing.JTextField textTotal;
     private javax.swing.JButton tombolSimpan;
-    private javax.swing.JButton tombolTambah;
+    private javax.swing.JButton tombolTambahDetail;
     // End of variables declaration//GEN-END:variables
 }

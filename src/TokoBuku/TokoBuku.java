@@ -17,7 +17,7 @@ public class TokoBuku {
         // Menampilkan Form: Cara #2
         FormUtama f1 = new FormUtama();
         f1.setLocationRelativeTo(null); // set posisi form ke tengah, sebelum ditampilkan
-        f1.setVisible(true);
+        f1.setVisible(true); // menampilkan form
     }
     
 }

@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author En Tay
@@ -36,7 +37,6 @@ public class FormBarang extends javax.swing.JFrame {
         tabelBarang = new javax.swing.JTable();
         tombolReload = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master Barang");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -142,33 +142,41 @@ public class FormBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_tombolTambahActionPerformed
 
     private void tombolReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolReloadActionPerformed
-        // TODO add your handling code here:
-        Connection conn;
         try {
-            // below two lines are used for connectivity.
-            Class.forName(Global.DBDRIVER);
-            conn = DriverManager.getConnection(Global.DBCONNECTION,Global.DBUSER,Global.DBPASS);
- 
-            Statement st;
-            st = conn.createStatement();
+            // deklarasi
+            Connection conn;
+            PreparedStatement st;
             ResultSet rs;
-            rs = st.executeQuery("select * from barang");
             
-            DefaultTableModel model = (DefaultTableModel)tabelBarang.getModel();
-            while(model.getRowCount()>0) { model.removeRow(0); }
+            // bersihkan tabel
+            // hapus setiap baris pada jTabel
+            DefaultTableModel model = (DefaultTableModel) tabelBarang.getModel();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+
+            // buat objek conn untuk koneksi database
+            conn = Global.db();
             
+            // siapkan statement untuk baca data
+            String sql ="select * from barang";
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+
+            // loop baca setiap data 
             String kode;
             String nama;
             while (rs.next()) {
                 kode = rs.getString("kode");
                 nama = rs.getString("nama");
+                // tambahkan data yang dibaca sebagai baris baru di jTable
                 model.addRow(new Object[]{kode, nama});
             }
             rs.close();
             st.close();
             conn.close();
         } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null,exception.getMessage());
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
     }//GEN-LAST:event_tombolReloadActionPerformed
 
@@ -176,13 +184,12 @@ public class FormBarang extends javax.swing.JFrame {
         // membaca nomor baris yang diklik
         Point p = evt.getPoint();
         int row = tabelBarang.rowAtPoint(p);
-        
+
         // ambil kode barang dari baris yang di klik
         String kode = tabelBarang.getModel().getValueAt(row, 0).toString();
-        
+
         // untuk percobaan, menamtampilkan 'kode'
         // JOptionPane.showMessageDialog(null, kode);
-        
         // buat objek FormDetailBarang
         FormDetailBarang f = new FormDetailBarang();
         f.baca(kode); // kirim 'kode' lewat fungsi 'baca'

@@ -37,6 +37,7 @@ public class FormUtama extends javax.swing.JFrame {
         menuFile = new javax.swing.JMenu();
         menuFileMaster = new javax.swing.JMenu();
         menuFileMasterBarang = new javax.swing.JMenuItem();
+        menuFileMasterKonsumen = new javax.swing.JMenuItem();
         menuFileExit = new javax.swing.JMenuItem();
         menuTransaksi = new javax.swing.JMenu();
         menuTransaksiInput = new javax.swing.JMenuItem();
@@ -63,6 +64,14 @@ public class FormUtama extends javax.swing.JFrame {
             }
         });
         menuFileMaster.add(menuFileMasterBarang);
+
+        menuFileMasterKonsumen.setText("Konsumen");
+        menuFileMasterKonsumen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFileMasterKonsumenActionPerformed(evt);
+            }
+        });
+        menuFileMaster.add(menuFileMasterKonsumen);
 
         menuFile.add(menuFileMaster);
 
@@ -127,6 +136,7 @@ public class FormUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAboutActionPerformed
 
     private void menuFileMasterBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileMasterBarangActionPerformed
+        // Menampilkan form: Cara #1
         new FormBarang().setVisible(true);
     }//GEN-LAST:event_menuFileMasterBarangActionPerformed
 
@@ -135,8 +145,12 @@ public class FormUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void menuTransaksiInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTransaksiInputActionPerformed
-        new FormTransaksi().setVisible(true);
+        new FormDetailTransaksi().baru();
     }//GEN-LAST:event_menuTransaksiInputActionPerformed
+
+    private void menuFileMasterKonsumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileMasterKonsumenActionPerformed
+        new FormKonsumen().setVisible(true);
+    }//GEN-LAST:event_menuFileMasterKonsumenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,6 +194,7 @@ public class FormUtama extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuFileExit;
     private javax.swing.JMenu menuFileMaster;
     private javax.swing.JMenuItem menuFileMasterBarang;
+    private javax.swing.JMenuItem menuFileMasterKonsumen;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuTransaksi;
     private javax.swing.JMenuItem menuTransaksiInput;

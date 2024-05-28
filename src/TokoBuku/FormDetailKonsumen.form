@@ -51,11 +51,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="textNama" min="-2" pref="120" max="-2" attributes="0"/>
-                          <Component id="textKode" min="-2" pref="63" max="-2" attributes="0"/>
+                          <Component id="textId" min="-2" pref="63" max="-2" attributes="0"/>
+                          <Component id="textTelepon" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -69,21 +71,26 @@
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textKode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textId" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="textNama" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textTelepon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tombolTambah" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tombolSelesai" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tombolUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tombolHapus" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -94,7 +101,7 @@
         <Property name="text" type="java.lang.String" value="Kode"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textKode">
+    <Component class="javax.swing.JTextField" name="textId">
     </Component>
     <Component class="javax.swing.JTextField" name="textNama">
     </Component>
@@ -107,6 +114,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Tambah"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tombolTambahActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="tombolSelesai">
       <Properties>
@@ -128,6 +138,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tombolHapusActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textTelepon">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Telepon"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -46,8 +45,6 @@ public class FormDetailBarang extends javax.swing.JFrame {
         tombolBatal = new javax.swing.JButton();
         tombolUpdate = new javax.swing.JButton();
         tombolHapus = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Nama");
 
@@ -163,44 +160,46 @@ public class FormDetailBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_tombolBatalActionPerformed
 
     private void tombolTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahActionPerformed
-        Connection conn;
         try {
+            // siapkan koneksi database
+            Connection conn;
             conn = Global.db();
-            
+
             // baca data
             String kode = textKode.getText();
             String nama = textNama.getText();
             String jenis = comboJenis.getSelectedItem().toString();
             int harga = Integer.parseInt(textHarga.getText());
-            
+
             // SQL
             String sql = "insert into barang (kode, nama, jenis, harga) values (?,?,?,?)";
-            
+
             // siapkan statement untuk INSERT
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, kode);
-            pst.setString(2, nama);
-            pst.setString(3, jenis);
-            pst.setInt(4, harga);
-            
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, kode);
+            st.setString(2, nama);
+            st.setString(3, jenis);
+            st.setInt(4, harga);
+
             // eksekusi SQL
-            pst.execute(); 
-            
-            // hapus objek 
-            pst.close();
+            st.execute();
+
+            // tutup koneksi & hapus objek 
+            st.close();
             conn.close();
-            
+
             // tampilkan pesan
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null,e.getMessage().toString());
-        } 
-        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage().toString());
+        }
+        setVisible(false); // setelah proses INSERT, sembunyikan form
+
     }//GEN-LAST:event_tombolTambahActionPerformed
 
     private void tombolUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUpdateActionPerformed
         Connection conn;
-        try {                
+        try {
             // pada bagian ini kita menggunakan Global.db(), untuk menggantikan perintah:
             // Class.forName dan DriverManager.getConnection
             conn = Global.db();  // ingat, ganti kata Global dengan nama Anda.
@@ -208,7 +207,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
             // baca data
             String kode = textKode.getText();
             String nama = textNama.getText();
-            String jenis = comboJenis.getSelectedItem().toString();
+            String jenis = comboJenis.getSelectedItem().toString(); // membaca item dropdown
             int harga = Integer.parseInt(textHarga.getText());
 
             // SQL
@@ -222,7 +221,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
             pst.setString(4, kode);
 
             // eksekusi SQL
-            pst.execute(); 
+            pst.execute();
 
             // hapus objek 
             pst.close();
@@ -230,13 +229,13 @@ public class FormDetailBarang extends javax.swing.JFrame {
 
             // tampilkan pesan
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null,e.getMessage().toString());
-        } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage().toString());
+        }
     }//GEN-LAST:event_tombolUpdateActionPerformed
 
     private void tombolHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "Konfirmasi", "Yakin hapus item ini?",  JOptionPane.DEFAULT_OPTION)==0) {
+        if (JOptionPane.showConfirmDialog(null, "Konfirmasi", "Yakin hapus item ini?", JOptionPane.DEFAULT_OPTION) == 0) {
             Connection conn;
             try {
                 conn = Global.db();
@@ -252,7 +251,7 @@ public class FormDetailBarang extends javax.swing.JFrame {
                 pst.setString(1, kode);
 
                 // eksekusi SQL
-                pst.execute(); 
+                pst.execute();
 
                 // hapus objek 
                 pst.close();
@@ -260,54 +259,63 @@ public class FormDetailBarang extends javax.swing.JFrame {
 
                 // tampilkan pesan
                 JOptionPane.showMessageDialog(null, "Data dihapus");
-            } catch(Exception e) {
+            } catch (Exception e) {
                 //JOptionPane.showMessageDialog(null,e.getMessage().toString());
-                JOptionPane.showMessageDialog(null,e.getMessage().toString());
-            } 
+                JOptionPane.showMessageDialog(null, e.getMessage().toString());
+            }
         }
-        
+
     }//GEN-LAST:event_tombolHapusActionPerformed
 
+    // fungsi yang dipanggil diluar class untuk menampilkan form dengan posisi
+    // menampilkan data berdasarkan "kode"
     public void baca(String kode) {
         tombolTambah.setVisible(false);
         tombolUpdate.setVisible(true);
         tombolHapus.setVisible(true);
-        
-        Connection conn;
+
         try {
-            Class.forName(Global.DBDRIVER);
-            conn = DriverManager.getConnection(Global.DBCONNECTION,Global.DBUSER, Global.DBPASS);
- 
-            Statement st;
-            st = conn.createStatement();
+            // deklarasi
+            Connection conn;
+            PreparedStatement st;
             ResultSet rs;
-            rs = st.executeQuery("select * from barang where kode='"+kode+"'");
-            if(rs.next()) {
+
+            conn = Global.db();
+
+            String sql = "select * from barang where kode=?";
+            st = conn.prepareStatement(sql);
+            st.setString(1, kode);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
                 textKode.setText(rs.getString("kode"));
                 textNama.setText(rs.getString("nama"));
+                textHarga.setText(rs.getString("harga"));
+                System.out.println(rs.getString("harga"));
             }
             st.close();
             rs.close();
             conn.close();
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null,"gagal baca");
-        } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "gagal baca");
+        }
         setVisible(true);
     }
-    
+
+    // fungsi yang dipanggil dari luar class untuk menampilkan form dengan 
+    // posisi "tambah baru"
     public void baru() {
         textKode.setText("");
         textNama.setText("");
         comboJenis.setSelectedIndex(0);
         textHarga.setText("0");
         setVisible(true);
-        
+
         tombolUpdate.setVisible(false);
         tombolTambah.setVisible(true);
         tombolHapus.setVisible(false);
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

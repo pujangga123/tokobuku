@@ -4,6 +4,13 @@
  */
 package TokoBuku;
 
+import java.awt.Point;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author En Tay
@@ -32,28 +39,51 @@ public class FormKonsumen extends javax.swing.JFrame {
         tombolTambah = new javax.swing.JButton();
         tombolSelesai = new javax.swing.JButton();
 
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
         tabelKonsumen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Kode", "Nama Konsumen"
+                "Kode", "Nama Konsumen", "Telp"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelKonsumen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelKonsumenMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(tabelKonsumen);
 
         tombolReload.setText("Reload");
+        tombolReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolReloadActionPerformed(evt);
+            }
+        });
 
         tombolTambah.setText("Tambah");
         tombolTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -99,8 +129,69 @@ public class FormKonsumen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tombolTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahActionPerformed
-        // TODO add your handling code here:
+        new FormDetailKonsumen().baru();
     }//GEN-LAST:event_tombolTambahActionPerformed
+
+    private void tombolReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolReloadActionPerformed
+        try {
+            // deklarasi
+            Connection conn;
+            PreparedStatement st;
+            ResultSet rs;
+            
+            // bersihkan tabel
+            // hapus setiap baris pada jTabel
+            DefaultTableModel model = (DefaultTableModel) tabelKonsumen.getModel();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+
+            // buat objek conn untuk koneksi database
+            conn = Global.db();
+            
+            // siapkan statement untuk baca data
+            String sql ="select * from konsumen";
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+
+            // loop baca setiap data 
+            String id;
+            String nama;
+            String telp;
+            while (rs.next()) {
+                id = rs.getString("id");
+                nama = rs.getString("nama");
+                telp = rs.getString("telepon");
+                // tambahkan data yang dibaca sebagai baris baru di jTable
+                model.addRow(new Object[]{id, nama, telp});
+            }
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+        }
+
+    }//GEN-LAST:event_tombolReloadActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        tombolReload.doClick();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void tabelKonsumenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKonsumenMouseClicked
+// membaca nomor baris yang diklik
+        Point p = evt.getPoint();
+        int row = tabelKonsumen.rowAtPoint(p);
+
+        // ambil kode barang dari baris yang di klik
+        String kode = tabelKonsumen.getModel().getValueAt(row, 0).toString();
+
+        // untuk percobaan, menamtampilkan 'kode'
+        // JOptionPane.showMessageDialog(null, kode);
+        // buat objek FormDetailBarang
+        FormDetailKonsumen f = new FormDetailKonsumen();
+        f.baca(kode); // kirim 'kode' lewat fungsi 'baca'
+    }//GEN-LAST:event_tabelKonsumenMouseClicked
 
     /**
      * @param args the command line arguments
